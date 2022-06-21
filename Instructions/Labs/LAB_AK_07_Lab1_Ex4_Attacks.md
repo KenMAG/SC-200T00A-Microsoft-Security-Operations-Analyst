@@ -85,7 +85,6 @@ The attack-detect configuration cycle used in this lab represents all data sourc
 
 To build a detection, you first start with building a KQL statement. Since you will attack a host, you will have representative data to start building the KQL statement.
 
-The following lab runs the same attacks on a Windows host with Defender for Endpoint installed and Windows with Sysmon installed. As you build the detections, you will see the difference in data normalization for each.
 
 After you have the KQL statement, you create the Analytical Rule.
 
