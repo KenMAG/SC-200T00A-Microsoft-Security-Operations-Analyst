@@ -82,6 +82,7 @@ In this task, you will connect the Microsoft 365 Defender connector.
 1. Under "Connect Events", select the **Name** checkbox to select all the checkboxes for "Microsoft Defender for Endpoint".
 
 1. Repeat the same for "Microsoft Defender for Office 365"
+1. Repeat the same for "Microsoft Defender Alert Evidence"
 
 1. Scroll to the bottom of the page and select **Apply Changes**.
 
@@ -100,7 +101,7 @@ In this task, you will connect the Azure Activity connector.
 
 1. Select the **Parameters** tab, choose your *uniquenameDefender* workspace from the **Primary Log Analytics workspace** drop-down list.
 
-1. Select the **ReMediation** tab and select the **Create a reMediation task** checkbox.
+1. Select the **Remediation** tab and select the **Create a remediation task** checkbox.
 
 1. Select the **Review + Create** button to review the configuration.
 
