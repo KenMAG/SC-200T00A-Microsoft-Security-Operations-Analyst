@@ -14,9 +14,9 @@ You're a Security Operations Analyst working at a company that implemented Micro
 
 >**Important:** The lab exercises for Learning Path #10 are in a *standalone* environment. If you exit the lab before completing it, you will be required to re-run the configurations again.
 
-The log data created in the Learning Path 9 lab exercises will not be available in this lab without rerunning the following prerequisite tasks.
+<!--- The log data created in the Learning Path 9 lab exercises will not be available in this lab without rerunning the following prerequisite tasks.
 
-<!--- **[Lab 09 Exercise 5](https://microsoftlearning.github.io/SC-200T00A-Microsoft-Security-Operations-Analyst/Instructions/Labs/LAB_AK_09_Lab1_Ex05_Attacks.html)**
+ **[Lab 09 Exercise 5](https://microsoftlearning.github.io/SC-200T00A-Microsoft-Security-Operations-Analyst/Instructions/Labs/LAB_AK_09_Lab1_Ex05_Attacks.html)**
 
 **[Lab 09 Exercise 6](https://microsoftlearning.github.io/SC-200T00A-Microsoft-Security-Operations-Analyst/Instructions/Labs/LAB_AK_09_Lab1_Ex06_Perform_Attacks.html)** --->
 
