@@ -209,6 +209,8 @@ In this task, you'll create a hunting query, and create a Livestream.
     | order by count_ desc nulls last 
     ```
 
+1. Select **Run query** from the command bar.
+
 1. Review the different results. You have now identified PowerShell requests that are running in your environment.
 
 1. Select the checkbox of the results that shows the *"-file c2.ps1"*.
