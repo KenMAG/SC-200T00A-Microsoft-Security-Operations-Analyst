@@ -206,18 +206,16 @@ In this task, you'll create a hunting query, and create a Livestream.
     | where TimeGenerated >= ago(lookback) 
     | where EventID == 4688 and Process =~ "powershell.exe"
     | extend PwshParam = trim(@"[^/\\]*powershell(.exe)+" , CommandLine) 
-    | project TimeGenerated, Computer, SubjectUserName, PwshParam 
-    | summarize min(TimeGenerated), count() by Computer, SubjectUserName, PwshParam 
-    | order by count_ desc nulls last 
+    | project TimeGenerated, Computer, SubjectUserName, PwshParam    
     ```
 
 1. Select **Run query** from the command bar.
 
 1. Review the different results. You have now identified PowerShell requests that are running in your environment.
 
-1. Select the checkbox of the results that shows the *"-file c2.ps1"*.
+1. Select the checkbox of the results that shows the *"-file c2.ps1"* in the *PwshParam* column.
 
-    <!---1. In the *Results* pane command bar, select the **Add bookmark** button.
+1. In the *Results* pane command bar, select the **Link to incident** icon.
     
     1. Select **+ Add new entity** under *Entity mapping*.
     
