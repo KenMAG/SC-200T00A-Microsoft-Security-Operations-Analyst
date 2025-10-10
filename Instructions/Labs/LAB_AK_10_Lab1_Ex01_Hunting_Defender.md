@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Exercise 1 - Perform Threat Hunting in Microsoft Sentinel'
+    title: 'Exercise 1 - Perform Threat Hunting with Microsoft Sentinel in the Microsoft Defender portal'
     module: 'Learning Path 10 - Perform threat hunting in Microsoft Sentinel'
 ---
 
-# Learning Path 10 - Lab 1 - Exercise 1 - Perform Threat Hunting in Microsoft Sentinel
+# Learning Path 10 - Lab 1 - Exercise 1 - Perform Threat Hunting with Microsoft Sentinel in the Microsoft Defender portal
 
 ## Lab scenario
 
@@ -216,16 +216,35 @@ In this task, you'll create a hunting query, and create a Livestream.
 1. Select the checkbox of the results that shows the *"-file c2.ps1"* in the *PwshParam* column.
 
 1. In the *Results* pane command bar, select the **Link to incident** icon.
-    
-    1. Select **+ Add new entity** under *Entity mapping*.
-    
-    1. For *Entity* select **Host**, then **Hostname** and **Computer** for the values.
-    
-    1. For *Tactics and Techniques*, select **Command and Control**.
-    
-    1. In the *Add bookmark* blade, select **Create**. We will map this bookmark to an incident later. 
-    
-    1. Close the *Logs* window by selecting the **X** in the top-right of the window and select **OK** to discard the changes. --->
+
+1. In the *Link to incident* pane, leave the **Create new incident** radio button selected.
+
+1. Fill in the following fields:
+
+    |Setting|Value|
+    |---|---|
+    |Alert title|**PowerShell C2 Hunt**|
+    |Severity|**High**|
+    |Category|**Command and Control**|
+    |MITRE techniques|**T1094: Custom Command and Control Protocol**|
+    |Description|**PowerShell C2 Hunt results**|
+    |Recommended actions|**Perform incident remediation**|
+
+1. Select **Next**.
+
+1. On the *Entity mapping* pane, in *Impacted Assets* select **+ Add assets**.
+
+1. For *Entity* select **Device**, then **Hostname** and **Computer** for *Identifier and Column*.
+
+1. Select **Next**.
+
+1. On the *Summary* pane, select **Submit**, then select **Done**.
+
+1. In the Microsoft Defender navigation menu, scroll down and expand the **Investigation & Response** section.
+
+1. Expand the **Incidents & Alerts** section and select **Incidents**.
+
+1. In the *Incidents* pane, you should see the **PowerShell C2 Hunt** incident listed.
 
 1. Return to the *Microsoft Sentinel* section of the Defender portal, and select the **Hunting** page under the *Threat Management* area.
 
