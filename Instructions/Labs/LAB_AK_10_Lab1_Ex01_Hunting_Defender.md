@@ -246,6 +246,8 @@ In this task, you'll create a hunting query, and create a Livestream.
 
 1. In the *Incidents* pane, you should see the **PowerShell C2 Hunt** incident listed.
 
+### Task 2: Create a Microsoft Sentinel Hunt and Livestream
+
 1. Return to the *Microsoft Sentinel* section of the Defender portal, and select the **Hunting** page under the *Threat Management* area.
 
 1. Select the **Queries** tab and then **+ New query** from the command bar.
@@ -283,17 +285,17 @@ In this task, you'll create a hunting query, and create a Livestream.
 
 1. Review the number of results in the middle pane under the *Results* column.
 
-<!--- 1. Select the **View Results** button from the right pane. The KQL query will automatically run.
-
-1. Close the *Logs* window by selecting the **X** in the top-right of the window and select **OK** to discard the changes. --->
+    <!--- 1. Select the **View Results** button from the right pane. The KQL query will automatically run.
+    
+    1. Close the *Logs* window by selecting the **X** in the top-right of the window and select **OK** to discard the changes. --->
 
 1. Right-click the **PowerShell Hunt** query again and select **Add to livestream**. **Hint:** This also can be done by sliding right and selecting the ellipsis **(...)** at the end of the row to open a context menu.
 
 1. Review that the *Status* is now *Running*. This is running every 30 seconds in the background and you'll receive a notification in the Defender portal (bell icon) when a new result is found.
 
-<!--- 1. Select the **Bookmarks** tab in the middle pane.
-
-1. Select the bookmark you created from the results list. --->
+    <!--- 1. Select the **Bookmarks** tab in the middle pane.
+    
+    1. Select the bookmark you created from the results list. --->
 
 1. Right-click the **PowerShell Hunt** Livestream and select **Play**. **Hint:** You can also select the ellipsis **(...)** at the end of the row to open a context menu, or select **Play** in the right detail pane.
 
@@ -329,56 +331,56 @@ In this task, you'll create a hunting query, and create a Livestream.
 
 1. Scroll left to notice that the *Severity* column is now populated with the incident's data.
 
-### Task 2: Create an NRT query rule
-
-In this task, instead of using a LiveStream, you'll create an NRT analytics query rule. NRT rules run every minute and lookback one minute. The benefit to NRT rules are they can use the alert and incident creation logic.
-
-1. Select the **Analytics** page under *Configuration* in Microsoft Sentinel. 
-
-1. Select the **Create** tab, then **NRT query rule**.
-
-1. This starts the "Analytics rule wizard". For the *General* tab type:
-
-    |Setting|Value|
-    |---|---|
-    |Name|**NRT PowerShell Hunt**|
-    |Description|**NRT PowerShell Hunt**|
-    |Tactics|**Command and Control**|
-    |Severity|**High**|
-
-1. Select **Next: Set rule logic >** button.
-
-1. For the *Rule query* enter the following KQL statement:
-
-    ```KQL
-    let lookback = 2d; 
-    SecurityEvent 
-    | where TimeGenerated >= ago(lookback) 
-    | where EventID == 4688 and Process =~ "powershell.exe"
-    | extend PwshParam = trim(@"[^/\\]*powershell(.exe)+" , CommandLine) 
-    | project TimeGenerated, Computer, SubjectUserName, PwshParam 
-    | summarize min(TimeGenerated), count() by Computer, SubjectUserName, PwshParam
-    ```
-
-1. Select **View query results >** to make sure your query doesn't have any errors.
-
-1. Close the *Logs* window by selecting the **X** in the top-right of the window and select **OK** to discard the changes. 
-
-1. Select **Test with current data** under *Results simulation*. Notice the expected number of *Alerts per day*.
-
-1. Under *Entity mapping* select:
-
-    - For the *Entity type* drop-down list select **Host**.
-    - For the *Identifier* drop-down list select **HostName**.
-    - For the *Value* drop-down list select **Computer**.
-
-1. Scroll down and select **Next: Incident settings>** button.
-
-1. For the *Incident settings* tab, leave the default values and select the **Next: Automated Response >** button.
-
-1. On the *Automated response* tab, select the **Next: Review and create >** button.
-
-1. On the *Review and create* tab, select the **Save** button to create and save the new Scheduled Analytics rule.
+    <!--- ### Task 2: Create an NRT query rule
+    
+    In this task, instead of using a LiveStream, you'll create an NRT analytics query rule. NRT rules run every minute and lookback one minute. The benefit to NRT rules are they can use the alert and incident creation logic.
+    
+    1. Select the **Analytics** page under *Configuration* in Microsoft Sentinel. 
+    
+    1. Select the **Create** tab, then **NRT query rule**.
+    
+    1. This starts the "Analytics rule wizard". For the *General* tab type:
+    
+        |Setting|Value|
+        |---|---|
+        |Name|**NRT PowerShell Hunt**|
+        |Description|**NRT PowerShell Hunt**|
+        |Tactics|**Command and Control**|
+        |Severity|**High**|
+    
+    1. Select **Next: Set rule logic >** button.
+    
+    1. For the *Rule query* enter the following KQL statement:
+    
+        ```KQL
+        let lookback = 2d; 
+        SecurityEvent 
+        | where TimeGenerated >= ago(lookback) 
+        | where EventID == 4688 and Process =~ "powershell.exe"
+        | extend PwshParam = trim(@"[^/\\]*powershell(.exe)+" , CommandLine) 
+        | project TimeGenerated, Computer, SubjectUserName, PwshParam 
+        | summarize min(TimeGenerated), count() by Computer, SubjectUserName, PwshParam
+        ```
+    
+    1. Select **View query results >** to make sure your query doesn't have any errors.
+    
+    1. Close the *Logs* window by selecting the **X** in the top-right of the window and select **OK** to discard the changes. 
+    
+    1. Select **Test with current data** under *Results simulation*. Notice the expected number of *Alerts per day*.
+    
+    1. Under *Entity mapping* select:
+    
+        - For the *Entity type* drop-down list select **Host**.
+        - For the *Identifier* drop-down list select **HostName**.
+        - For the *Value* drop-down list select **Computer**.
+    
+    1. Scroll down and select **Next: Incident settings>** button.
+    
+    1. For the *Incident settings* tab, leave the default values and select the **Next: Automated Response >** button.
+    
+    1. On the *Automated response* tab, select the **Next: Review and create >** button.
+    
+    1. On the *Review and create* tab, select the **Save** button to create and save the new Scheduled Analytics rule.--->
 
 ### Task 3: Create a Search job
 
