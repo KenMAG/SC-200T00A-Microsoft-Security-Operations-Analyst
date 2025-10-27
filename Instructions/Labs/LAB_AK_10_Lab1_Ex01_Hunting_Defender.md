@@ -246,7 +246,41 @@ In this task, you'll create a hunting query, and create a Livestream.
 
 1. In the *Incidents* pane, you should see the **PowerShell C2 Hunt** incident listed.
 
-### Task 2: Create a Microsoft Sentinel Hunt and Livestream
+### Task 2: Hunt with Microsoft Sentinel graph
+
+1. In the Microsoft Defender navigation menu, scroll down and expand the **Investigation & Response** section.
+
+1. Expand the **Hunting** section and select **Advanced hunting**.
+
+1. Select the *New graph* tab.
+
+1. Select **Search with Predefined scenarios**.
+
+1. On the *Search Predefined scenarios* pane, select the **Users with access to Sensitive data** Scenario.
+
+1. In the *Scenario inputs*, enter **sensitivestorage** for the *Target storage account*.
+
+1. Leave the filters with their default values and select **Run**.
+
+1. The graph will render. Review the results and identify any users with access to the sensitive storage account.
+
+1. Select the **Defender for Cloud** icon above the *sensitivestorage* Storage account.
+
+1. In the *sensitivestorage* details pane *General* tab, you can see that the *Discovery source* is **Defender for Cloud**.
+
+1. Explore the other tabs in the *sensitivestorage* details pane. The *All data* tab contains many details.
+
+    >**Note**: The *Attack paths* tab is only populated when there are multiple attacks.
+
+1. In the graph display you will see a *User account* node connected to the *sensitivestorage* Storage account with a gold crown icon. That is the *Critical* user with access to sensitive data.
+
+1. Selecting the Crown icon will open the *User account* details pane and display more information about critical users.
+
+1. Selecting the "+" icon on a node will expand the graph to show more relationships.
+
+1. Continuing expanding the graph, explore the different relationships and entities, and then proceed to the next task.
+
+### Task 3: Create a Microsoft Sentinel Hunt and Livestream
 
 1. Return to the *Microsoft Sentinel* section of the Defender portal, and select the **Hunting** page under the *Threat Management* area.
 
