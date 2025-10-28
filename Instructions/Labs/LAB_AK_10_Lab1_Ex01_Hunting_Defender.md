@@ -416,7 +416,7 @@ In this task, you'll create a hunting query, and create a Livestream.
     
     1. On the *Review and create* tab, select the **Save** button to create and save the new Scheduled Analytics rule.--->
 
-### Task 3: Create a Data lake KQL job
+### Task 4: Create a Data lake KQL job
 
 In this task, you'll create a Data lake KQL job to look for a C2 attack.
 
@@ -478,7 +478,7 @@ In this task, you'll create a Data lake KQL job to look for a C2 attack.
 
 1. Review the results to identify any potential C2 activity.
 
-### Task 4: Create a hunt that combines multiple queries into a MITRE tactic
+### Task 5: Create a hunt that combines multiple queries into a MITRE tactic
 
 1. The MITRE ATT&CK map helps you identify specific gaps in your detection coverage. Use predefined hunting queries for specific MITRE ATT&CK techniques as a starting point to develop new detection logic.
 
