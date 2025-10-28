@@ -416,39 +416,67 @@ In this task, you'll create a hunting query, and create a Livestream.
     
     1. On the *Review and create* tab, select the **Save** button to create and save the new Scheduled Analytics rule.--->
 
-### Task 3: Create a Search job
+### Task 3: Create a Data lake KQL job
 
-In this task, you'll use a Search job to look for a C2.
+In this task, you'll create a Data lake KQL job to look for a C2 attack.
 
-**Note:** The *Restore* operation incurs costs that can deplete your Azure subscription credits. For that reason, you won't be performing the restore operation in this lab. However, you can follow the steps below to perform the restore operation in your own environment.
+>**Note:**: The *KQL job* feature allows you to run KQL queries on your data lake and create a job that will continuously monitor for specific patterns or anomalies.
 
-1. Select the **Search & restore** page under *Data lake exploration* in Microsoft Sentinel.
+1. Expand *Data lake exploration* in Microsoft Sentinel and select **Jobs**.
 
-1. In the search box, enter **reg.exe** and then select **Start**.
+1. Select the **Create a new KQL job** link.
 
-1. A new browser window opens to the Azure portal Log Analytics workspace *Logs* page associated with Microsoft Sentinel.
+1. The *Create a new KQL job* wizard opens.
 
-1. Select *KQL mode* from the drop-down menu in the top right of the window.
+    >**Note:** Review the *Consumption billing appplicable* message.
 
-1. Your query is populated and ready to run. Select the ellipsis icon **(...)** from the top right and then toggle the **Search job**.
+1. Enter a name for your job in the *Job name* field.
 
-1. In the *Run a search job* pop-up window, for *New table name* enter **Reg_Exe_Search_Job**.
+1. In the *Destination table in Analytics tier* section, slect the **defender** workspace from the *Destination workspace* drop-down menu.
 
-1. Select the **Run search job** button.
+    >**Note:** The *_KQL_CL* is the custom log default appendice.
 
-1. The search job creates a new table (Reg_Exe_Search_Job_SRCH) with your results as soon as they arrive. 
+1. Leave the *Create a new table* radio button selected, and enter **C2ATTACKHUNT** for for the new table name.
 
-1. Close the *Logs* window by selecting the **X** in the top-right of the window and select **OK** to discard the changes.
+1. Select the **Next** button.
 
-1. The results can be consulted from the *Saved Searches* tab on the *Search & restore* **Search** page. **Hint:** Select *Refresh* to see the latest results.
+1. On the *Review the query* page, enter the following KQL query:
 
-1. Select the **Restoration** tab from the command bar and then the **Restore** button.
+    ```KQL
+    let lookback = 2d; 
+    SecurityEvent 
+    | where TimeGenerated >= ago(lookback) 
+    | where EventID == 4688 and Process =~ "powershell.exe"
+    | extend PwshParam = trim(@"[^/\\]*powershell(.exe)+" , CommandLine) 
+    | project TimeGenerated, Computer, SubjectUserName, PwshParam 
+    | summarize min(TimeGenerated), count() by Computer, SubjectUserName, PwshParam    
+    ```
 
-1. Under *Select a table to restore*, search for and select **SecurityEvent**.
+1. On the *Schedule the job* page, leave the *Job frequency* radio button selected to **One time**, and select the **Next** button.
 
-1. Review the options available and then select the **Cancel** button.
+1. On the *Summary, Review and finish to run job as scheduled* page, review the job settings and select the **Submit** button.
 
-    >**Note:** If you were running the job, the restore would run for a couple of minutes and your data would be available in a new table.
+1. On the *Summary, Job successfully scheduled* page, select the **Done** button.
+
+1. On the *Jobs* page, you can see the new job listed, and the *Last run status* shows the job as **In progress**.
+
+    >**Note:** It may take up to 10 minutes for the job to complete.
+
+1. Select the refresh icon near the top-left of the *Jobs* page to refresh the *Last run status*.
+
+1. When the *Last run status* shows **Succeeded**, select the job and the job details page opens.
+
+1. You can view the history of the job runs and other details.
+
+1. Select the *Destination table* link for **C2ATTACKHUNT_KQL_CL**.
+
+1. This opens the *Advanced hunting* page with the **C2ATTACKHUNT_KQL_CL** table populated in the *New query* form. If the table name has a red rippled underline, it means the table is unknown and it may take several minutes to be updated.
+
+    >**Note:** After the table is known to *Advanced hunting*, you can modify the query as needed to refine your search.
+
+1. Select the **Run query** button to execute the query and view the results.
+
+1. Review the results to identify any potential C2 activity.
 
 ### Task 4: Create a hunt that combines multiple queries into a MITRE tactic
 
