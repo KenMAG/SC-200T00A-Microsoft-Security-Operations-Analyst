@@ -44,7 +44,7 @@ In this task, you install the **Microsoft Sentinel Training Lab Solution** from 
 
 1. Wait for the deployment to complete, then select **Home** from the breadcrumb navigation.
 
-### Task 2: Explore the Log Analytics Workspace
+### Task 2: Query log data with KQL in Defender XDR
 
 1. In the Microsoft Edge browser, navigate to the Microsoft Defender portal at <https://security.microsoft.com>.
 
@@ -72,7 +72,7 @@ In this task, you install the **Microsoft Sentinel Training Lab Solution** from 
 
 1. Notice that the default results render a *Timeline visualization* chart.
 
-1. Collapse the *Timeline visualization* chart for more screen spaceand scroll down to the **>** next to the first record to expand the information for the row.
+1. Collapse the *Timeline visualization* chart for more screen space and scroll down to the **>** next to the first record to expand the information for the row.
 
 ### Task 3: Run Basic KQL Statements
 
