@@ -14,7 +14,7 @@ You're a Security Operations Analyst working at a company that is implementing M
 
 >**Important:** The lab exercises for Learning Path #6 are in a *standalone* environment. If you exit the lab before completing it, you will be required to re-run any configurations steps again.
 
->**Note:** This lab profile takes >15 minutes to fully build as Microsoft Sentinel is being predeployed in your Azure subscription with the name **defenderWorkspace**.
+>**Note:** This lab profile takes >15 minutes to fully build as Microsoft Sentinel is being predeployed in your Azure subscription with the name **SentinelWorkspace-01**.
 
 <!--- >**Tip:** This lab involves entering many KQL scripts into Microsoft Sentinel. The scripts were provided in a file at the beginning of this lab. An alternate location to download them is:  <https://github.com/MicrosoftLearning/SC-200T00A-Microsoft-Security-Operations-Analyst/tree/master/Allfiles> --->
 
@@ -34,7 +34,7 @@ In this task, you install the **Microsoft Sentinel Training Lab Solution** from 
 
 1. In the **Microsoft Sentinel Training Lab Solution** page, select **Create** to install the solution.
 
-1. In the **Create Microsoft Sentinel Training Lab Solution** page, select the **defender-RG** Resource Group and the **defenderWorkspace** workspace.
+1. In the **Create Microsoft Sentinel Training Lab Solution** page, select the **SentinelStatic** Resource Group and the **SentinelWorkspace-01** workspace.
 
 1. Select **Review + Create** to deploy the solution.
 
@@ -46,21 +46,23 @@ In this task, you install the **Microsoft Sentinel Training Lab Solution** from 
 
 ### Task 2: Explore the Log Analytics Workspace
 
-1. In the Azure portal search bar, type **Microsoft Sentinel** and select it from the results.
+1. In the Microsoft Edge browser, navigate to the Microsoft Defender portal at <https://security.microsoft.com>.
 
-1. On the Microsoft Sentinel page, select the **defenderWorkspace** workspace.
+1. In the **Sign in** dialog box, copy, and paste in the **Tenant Email** account provided by your lab hosting provider and then select **Next**.
 
-1. In the Microsoft Sentinel, expand the **General** section and select **Logs** from the navigation menu.
+1. In the **Enter password** dialog box, copy, and paste in the **Tenant Password** provided by your lab hosting provider and then select **Sign in**.
 
-1. Close the Log Analytics video pop-up window that appears.
+    >**Note:** You may be prompted to enter the *Temporary Access Pass* (TAP) instead of a password.
 
-1. Close the **Queries hub**.
+1. In the Microsoft Defender navigation menu, scroll down and expand the **Investigation & Response** section.
 
-1. Use the dropdown menu to change from **Simple mode** to **KQL mode**.
+1. Expand the **Hunting** section and select **Advanced hunting**.
 
-1. Explore the available tables and other tools listed in the *schema and filter pane* on the left side of the screen.
+   >**Important:** Please paste any KQL queries first in Notepad and then copy from there to the *New Query 1* Log window to avoid any errors.
 
-1. In the query editor, enter the following query and select the **Run** button. You should see the query results in the bottom window.
+   >**Note:** If you receive the message, "security.microsoft.com wants to.. See text and images copied to the clipboard", select **Allow**.
+
+1. In the *New query* tab, enter the following query and select the **Run query** button. You should see the query results in the bottom window.
 
     ```KQL
     SecurityEvent_CL
@@ -68,9 +70,9 @@ In this task, you install the **Microsoft Sentinel Training Lab Solution** from 
 
     >**Note:** The *SecurityEvent_CL* table is a custom table created by the Microsoft Sentinel Training Lab Solution. It contains sample data that you can use to practice writing KQL statements.
 
-1. Notice that the filter set to **Show: 1000 results**.
+1. Notice that the default results render a *Timeline visualization* chart.
 
-1. Next to the first record, select the **>** to expand the information for the row.
+1. Collapse the *Timeline visualization* chart for more screen spaceand scroll down to the **>** next to the first record to expand the information for the row.
 
 ### Task 3: Run Basic KQL Statements
 
@@ -80,14 +82,13 @@ In this task, you'll build basic KQL statements.
 
 1. The following statement demonstrates the **search** operator, which searches all columns in the table for the value.
 
-1. The *Time range* should default to **Last 24 hours** in the Query Window.
+1. For the remainder of the lab, change the *Time range* from the default **Last 24 hours** to **Last 7 days**, unless the time range is specified in the query.
 
-    <!--- 1. In the Query Window, enter the following statement and select **Run**:
+1. In the Query Window, enter the following statement and select **Run**:
 
     ```KQL
-    search "location"
+    search "Computer"
     ```
-    --->
 
     >**Note:** Using the *Search* operator without specific tables or qualifying clauses is less efficient than table-specific and column-specific text filtering.
 
@@ -97,44 +98,42 @@ In this task, you'll build basic KQL statements.
     search in (SecurityEvent_CL,App*) "new"
     ```
 
-1. Change back the *Time range* to **Last 24 hours** in the Query Window.
-
 1. The following statements demonstrate the **where** operator, which filters on a specific predicate. In the Query Window, enter the following statement and select **Run**:
 
     >**Important:** You should select **Run** after entering each query from the code blocks below.
 
     ```KQL
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d)
+    | where TimeGenerated > ago(5d)
     ```
 
     >**Note:** The *Time range* now shows *Set in query* since we are filtering with the TimeGenerated column.
 
     ```KQL
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d) and EventID_s == 4624
+    | where TimeGenerated > ago(5d and EventID_s == 4624
     ```
 
     ```KQL
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d)
+    | where TimeGenerated > ago(5d)
     | where EventID_s == 4624  
     | where AccountType_s =~ "user"
     ```
 
     ```KQL
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d) and EventID_s in (4624, 4625)
+    | where TimeGenerated > ago(5d) and EventID_s in (4624, 4625)
  
     ```
 
 1. The following statement demonstrates the use of the **let** statement to declare *variables*. In the Query Window, enter the following statement and select **Run**:
 
     ```KQL
-    let timeOffset = 1h;
+    let timeOffset = 1d
     let discardEventID = 4688;
     SecurityEvent_CL
-    | where TimeGenerated > ago(timeOffset*2) and TimeGenerated < ago(timeOffset)
+    | where TimeGenerated > ago(timeOffset*60) and TimeGenerated < ago(timeOffset)
     | where EventID_s != discardEventID
     ```
 
@@ -146,11 +145,11 @@ In this task, you'll build basic KQL statements.
       @"NT AUTHORITY\SYSTEM"
     ];
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d)
+    | where TimeGenerated > ago(5d)
     | where Account_s in (suspiciousAccounts)
     ```
 
-    >**Tip:** You can re-format the query easily by selecting the ellipsis (...) in the Query window and select **Format query**.
+    <!--- :** You can re-format the query easily by selecting the ellipsis (...) in the Query window and select **Format query**.--->
 
 1. The following statement demonstrates the use of the **let** statement to declare a *dynamic table*. In the Query Window, enter the following statement and select **Run**:
 
@@ -162,66 +161,23 @@ In this task, you'll build basic KQL statements.
     LowActivityAccounts | where Account_s contains "sql"
     ```
 
-    <!--- 1. Change the **Time range** to **Last hour** in the Query Window. This limits our results for the following statements.
-
-    1. The following statement demonstrates the **extend** operator, which creates a calculated column and adds it to the result set. In the Query Window, enter the following statement and select **Run**: 
-
-    ```KQL
-    SecurityEvent_CL  
-    | where TimeGenerated > ago(7d) 
-    | where ProcessName != "" and Process != "" 
-    | extend StartDir =  substring(ProcessName,0, string_size(ProcessName)-string_size(Process))
-    ```
-
-    1. The following statement demonstrates the **order by** operator, which sorts the rows of the input table by one or more columns in ascending or descending order. The **order by** operator is an alias to the **sort by** operator. In the Query Window, enter the following statement and select **Run**: 
-
-    ```KQL
-    SecurityEvent_CL  
-    | where TimeGenerated > ago(7d) 
-    | where ProcessName != "" and Process != "" 
-    | extend StartDir =  substring(ProcessName,0, string_size(ProcessName)-string_size(Process)) 
-    | order by StartDir desc, Process asc
-    ```
-
-    1. The following statements demonstrate the **project** operator, which selects the columns to include in the order specified. In the Query Window, enter the following statement and select **Run**: 
-
-    ```KQL
-    SecurityEvent_CL  
-    | where TimeGenerated > ago(7d) 
-    | where ProcessName != "" and Process != "" 
-    | extend StartDir =  substring(ProcessName,0, string_size(ProcessName)-string_size(Process)) 
-    | order by StartDir desc, Process asc 
-    | project Process, StartDir
-    ```
-
-    1. The following statements demonstrate the **project-away** operator, which selects the columns to exclude from the output. In the Query Window, enter the following statement and select **Run**: 
-
-    ```KQL
-    SecurityEvent_CL  
-    | where TimeGenerated > ago(7d) 
-    | where ProcessName != "" and Process != "" 
-    | extend StartDir =  substring(ProcessName,0, string_size(ProcessName)-string_size(Process)) 
-    | order by StartDir desc, Process asc 
-    | project-away ProcessName --->
-    ```
-
 ### Task 4: Analyze Results in KQL with the Summarize Operator
 
 In this task, you'll build KQL statements to aggregate data. **Summarize** groups the rows according to the **by** group columns, and calculates aggregations over each group.
 
-1. The following statement demonstrates the **count()** function, which returns a count of the group. In the Query Window enter the following statement and select **Run**: 
+1. The following statement demonstrates the **count()** function, which returns a count of the group. In the Query Window enter the following statement and select **Run**:
 
     ```KQL
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d) and EventID_s == 4688  
+    | where TimeGenerated > ago(5d) and EventID_s == 4688  
     | summarize count() by Computer
     ```
 
-1. The following statement demonstrates the **count()** function, but in this example, we name the column as *cnt*. In the Query Window, enter the following statement and select **Run**: 
+1. The following statement demonstrates the **count()** function, but in this example, we name the column as *cnt*. In the Query Window, enter the following statement and select **Run**:
 
     ```KQL
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d) and EventID_s == 4624  
+    | where TimeGenerated > ago(5d) and EventID_s == 4624  
     | summarize cnt=count() by AccountType_s, Computer
     ```
 
@@ -229,18 +185,18 @@ In this task, you'll build KQL statements to aggregate data. **Summarize** group
 
     ```KQL
     SigninLogs_CL  
-    | where TimeGenerated > ago(7d)
+    | where TimeGenerated > ago(5d)
     | summarize dcount(IpAddress)
     ```
 
-1. The following statement is a rule to detect Invalid password failures across multiple applications for the same account. In the Query Window, enter the following statement and select **Run**:
+1. The following statement is a rule to detect *User account is disabled* failures across multiple applications for the same account. In the Query Window, enter the following statement and select **Run**:
 
     ```KQL
     let timeframe = 30d;
     let threshold = 1;
     SigninLogs_CL
     | where TimeGenerated >= ago(timeframe)
-    | where ResultDescription has "Invalid password"
+    | where ResultDescription has "User account is disabled"
     | summarize applicationCount = dcount(AppDisplayName_s) by UserPrincipalName_s, IPAddress
     | where applicationCount >= threshold
     ```
@@ -285,7 +241,7 @@ In this task, you'll build KQL statements to aggregate data. **Summarize** group
 
     ```KQL
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d)
+    | where TimeGenerated > ago(5d)
     | where EventID_s == 4624  
     | summarize make_list(Account_s) by Computer
     ```
@@ -294,7 +250,7 @@ In this task, you'll build KQL statements to aggregate data. **Summarize** group
 
     ```KQL
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d)
+    | where TimeGenerated > ago(5d)
     | where EventID_s == 4624  
     | summarize make_set(Account_s) by Computer
     ```
@@ -307,7 +263,7 @@ In this task, you'll use generate visualizations with KQL statements.
 
     ```KQL
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d)
+    | where TimeGenerated > ago(5d)
     | summarize count() by Account_s
     | render barchart
     ```
@@ -316,7 +272,7 @@ In this task, you'll use generate visualizations with KQL statements.
 
     ```KQL
     SecurityEvent_CL  
-    | where TimeGenerated > ago(7d)
+    | where TimeGenerated > ago(5d)
     | summarize count() by bin(TimeGenerated, 1m)
     | render timechart
     ```
@@ -325,7 +281,7 @@ In this task, you'll use generate visualizations with KQL statements.
 
 In this task, you'll build multi-table KQL statements.
 
-1. Change the **Time range** to **Last 7 days** in the Query Window. This limits our results for the following statements.
+1. Change the **Time range** to **Custom time range** in the *Query* window spanning at least 5 days for the following statements.
 
 1. The following statement demonstrates the **union** operator, which takes two or more tables and returns all their rows. Understanding how results are passed and impacted with the pipe character is essential. In the Query Window, enter the following statements and select **Run** for each query separately to see the results:
 
@@ -353,10 +309,10 @@ In this task, you'll build multi-table KQL statements.
 
     >**Note:** The 'empty row' in the results will show the summarized count of SigninLogs_CL.
 
-1. The following statement demonstrates the **union** operator support to union multiple tables with wildcards. In the Query Window, enter the following statement and select **Run**: 
+1. The following statement demonstrates the **union** operator support to union multiple tables with wildcards. In the Query Window, enter the following statement and select **Run**:
 
     ```KQL
-    union App*  
+    union Sec*  
     | summarize count() by Type
     ```
 
@@ -378,7 +334,7 @@ In this task, you'll build multi-table KQL statements.
     >**Important:**
      The first table specified in the join is considered the Left table. The table after the **join** operator is the right table. When working with columns from the tables, the $left.Column name and $right.Column name is to distinguish which tables column are referenced. The **join** operator supports a full range of types: flouter, inner, innerunique, leftanti, leftantisemi, leftouter, leftsemi, rightanti, rightantisemi, rightouter, rightsemi.
 
-1. You can leave the **Time range** at **Last 7 days** in the Query Window.
+1. You can leave the **Custom time range** you set earlier in the *Query* window.
 
 ### Task 7: Work with string data in KQL
 
@@ -416,35 +372,6 @@ In this task, you'll work with structured and unstructured string fields with KQ
     | parse EventText with * "resourceName=" resourceName ", totalSlices=" totalSlices:long * "sliceNumber=" sliceNumber:long * "lockTime=" lockTime ", releaseTime=" releaseTime:date "," * "previousLockTime=" previousLockTime:date ")" *  
     | project resourceName, totalSlices, sliceNumber, lockTime, releaseTime, previousLockTime
     ```
-
-    <!--- 1. The following statement demonstrates working with **dynamic** fields, which are special since they can take on any value of other data types. In this example, The DeviceDetail_s field from the SigninLogs_CL table is of type **dynamic**. In the Query Window, enter the following statement and select **Run**:
-
-    ```KQL
-    SigninLogs
-    | extend OS = DeviceDetail.operatingSystem
-    ```
-
-     1. The following example shows how to break out packed fields for SigninLogs_CL. In the Query Window, enter the following statement and select **Run**:
-
-    ```KQL
-    SigninLogs_CL 
-    | extend OS = DeviceDetail.operatingSystem, Browser = DeviceDetail.browser 
-    | extend StatusCode = tostring(Status.errorCode), StatusDetails = tostring(Status.additionalDetails) 
-    | extend Date = startofday(TimeGenerated) 
-    | summarize count() by Date, Identity, UserDisplayName, UserPrincipalName, IPAddress, ResultType, ResultDescription, StatusCode, StatusDetails 
-    | sort by Date
-
-    SigninLogs_CL 
-    | extend OS = todynamic(DeviceDetail_s)
-    | where OS = DeviceDetail_s.operatingSystem, Browser = DeviceDetail_s.browser
-    | extend StatusCode = tostring(Status_s.errorCode), StatusDetails = tostring(Status_s.additionalDetails) 
-    | extend Date = startofday(TimeGenerated) 
-    | summarize count() by Date, UserDisplayName_s, UserPrincipalName_s, IPAddress, ResultType, ResultDescription, StatusCode, StatusDetails, OS, Browser 
-    | sort by Date
-
-    ```
-
-    >**Important:** Although the dynamic type appears JSON-like, it can hold values that the JSON model does not represent because they do not exist in JSON. Therefore, in serializing dynamic values into a JSON representation, values that JSON cannot represent are serialized into string values. --->
 
 1. The following statements demonstrate operators to manipulate JSON stored in string fields. Many logs submit data in JSON format, which requires you to know how to transform JSON data to fields that can be queried. In the Query Window, enter the following statement and select **Run**:
 
