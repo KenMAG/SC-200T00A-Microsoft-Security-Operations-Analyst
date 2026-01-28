@@ -41,7 +41,7 @@ As described above, Azure Arc has been pre-installed on the **WINServer** machin
 1. In the Command Prompt window, type the following command. *Do not press enter*:
 
     ```cmd
-    azcmagent connect -g "defender-RG" -l "EastUS" -s "Subscription ID string"
+    azcmagent connect -g "SentinelStatic" -l "CentralUS" -s "Subscription ID string"
     ```
 
 1. Replace the **Subscription ID string** with the *Subscription ID* provided by your lab hoster (*Resources tab). Make sure to keep the quotes.
@@ -51,6 +51,8 @@ As described above, Azure Arc has been pre-installed on the **WINServer** machin
     >**Note**: If you see the *How do you want to open this?* browser selection window, select **Microsoft Edge**.
 
 1. In the *Sign in* dialog box, enter your **Tenant Email** and **Tenant Password** provided by your lab hosting provider and select **Sign in**. Wait for the *Authentication complete* message, close the browser tab and return to the *Command Prompt* window.
+
+    >**Note:** You may be prompted to enter the *Temporary Access Pass* (TAP) instead of a password.
 
 1. When the commands complete running, leave the *Command Prompt* window open and type the following command to confirm that the connection was successful:
 
@@ -74,6 +76,8 @@ In this task, you'll add an Azure Arc connected, on-premises machine to Microsof
 
 1. In the **Enter password** dialog box, copy, and paste in the **Tenant Password** provided by your lab hosting provider and then select **Sign in**.
 
+    >**Note:** You may be prompted to enter the *Temporary Access Pass* (TAP) instead of a password.
+
 1. In the Microsoft Defender navigation menu, scroll down and expand the **Microsoft Sentinel** section.
 
 1. Expand the **Configuration** section and select **Data connectors**.
@@ -94,7 +98,7 @@ In this task, you'll add an Azure Arc connected, on-premises machine to Microsof
 
     >**Hint:** You can expand the whole *Scope* hierarchy by selecting the ">" before the *Scope* column.
 
-1. Expand **defender-RG** Resource Group, then select **WINServer**.
+1. Expand the **SentinelStatic** Resource Group, then select **WINServer**.
 
 1. Select **Next: Collect**, and leave the *All Security Events* selected.
 
@@ -190,6 +194,8 @@ In this task, you'll create a hunting query, and create a Livestream.
 
 1. In the **Enter password** dialog box, copy, and paste in the **Tenant Password** provided by your lab hosting provider and then select **Sign in**.
 
+    >**Note:** You may be prompted to enter the *Temporary Access Pass* (TAP) instead of a password.
+
 1. In the Microsoft Defender navigation menu, scroll down and expand the **Investigation & Response** section.
 
 1. Expand the **Hunting** section and select **Advanced hunting**.
@@ -200,9 +206,9 @@ In this task, you'll create a hunting query, and create a Livestream.
 
    >**Note:** If you receive the message, "security.microsoft.com wants to.. See text and images copied to the clipboard", select **Allow**.
 
-    ```KQL
+    ```Kusto
     let lookback = 2d; 
-    SecurityEvent 
+    SecurityEvent
     | where TimeGenerated >= ago(lookback) 
     | where EventID == 4688 and Process =~ "powershell.exe"
     | extend PwshParam = trim(@"[^/\\]*powershell(.exe)+" , CommandLine) 
@@ -252,27 +258,28 @@ In this task, you'll create a hunting query, and create a Livestream.
 
 1. Expand the **Hunting** section and select **Advanced hunting**.
 
-1. Select the *New graph* tab.
+1. Select the *Create new graph* icon, or the *New graph* tab.
 
 1. Select **Search with Predefined scenarios**.
 
 1. On the *Search Predefined scenarios* pane, select the **Users with access to Sensitive data** Scenario.
 
-1. In the *Scenario inputs*, enter **sensitivestorage** for the *Target storage account*.
+1. In the *Scenario inputs*, enter **sensitivestorageaccount** for the *Target storage account*.
 
 1. Leave the filters with their default values and select **Run**.
 
 1. The graph will render. Review the results and identify any users with access to the sensitive storage account.
 
-1. Select the **Defender for Cloud** icon above the *sensitivestorage* Storage account.
+1. Select the **Defender for Cloud** icon above the *sensitivestorageaccount* Storage account.
 
-1. In the *sensitivestorage* details pane *General* tab, you can see that the *Discovery source* is **Defender for Cloud**.
+    >**Note**: If the *Defender for Cloud* icon is not visible, make sure the *Discovery source* is enabled in *Layers*.
 
-1. Explore the other tabs in the *sensitivestorage* details pane. The *All data* tab contains many details.
+1. In the *sensitivestorageaccount* *General details* pane, you can see that the *Discovery source* is **Defender for Cloud**.
 
+1. Explore the other tabs in the *sensitivestorageaccount* details pane. The *All data* tab contains many details.
     >**Note**: The *Attack paths* tab is only populated when there are multiple attacks.
 
-1. In the graph display you will see a *User account* node connected to the *sensitivestorage* Storage account with a gold crown icon. That is the *Critical* user with access to sensitive data.
+1. In the graph display you will see a *User account* node connected to the *sensitivestorageaccount* Storage account with a gold crown icon. That is the *Critical* user with access to sensitive data.
 
 1. Selecting the Crown icon will open the *User account* details pane and display more information about critical users.
 
@@ -432,7 +439,7 @@ In this task, you'll create a Data lake KQL job to look for a C2 attack.
 
 1. Enter a name for your job in the *Job name* field.
 
-1. In the *Destination table in Analytics tier* section, slect the **defender** workspace from the *Destination workspace* drop-down menu.
+1. In the *Destination table in Analytics tier* section, slect the **SentinelWorkspace-01** workspace from the *Destination workspace* drop-down menu.
 
     >**Note:** The *_KQL_CL* is the custom log default appendice.
 
@@ -452,11 +459,13 @@ In this task, you'll create a Data lake KQL job to look for a C2 attack.
     | summarize min(TimeGenerated), count() by Computer, SubjectUserName, PwshParam    
     ```
 
+1. Select the **Next** button.
+
 1. On the *Schedule the job* page, leave the *Job frequency* radio button selected to **One time**, and select the **Next** button.
 
 1. On the *Summary, Review and finish to run job as scheduled* page, review the job settings and select the **Submit** button.
 
-1. On the *Summary, Job successfully scheduled* page, select the **Done** button.
+1. On the *Summary, Job saved* pane, select the **Done** button.
 
 1. On the *Jobs* page, you can see the new job listed, and the *Last run status* shows the job as **In progress**.
 

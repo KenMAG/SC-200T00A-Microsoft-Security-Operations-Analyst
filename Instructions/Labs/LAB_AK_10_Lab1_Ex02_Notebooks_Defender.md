@@ -30,20 +30,6 @@ This task explores Notebooks in Microsoft Sentinel Data lake. You will be using 
 
 1. Go to the task bar and select the Visual Studio Code icon.
 
-    <!---1. Once opened, go to File and choose 'Open Folder'.
-    
-    1. Choose the Desktop folder and select 'New Folder'.
-    
-    1. Give the folder a unique name (your name appended to LAB543).
-    
-    1. select that folder to open.
-    
-    1. Go back to file and select 'save workspace as'.
-    
-    1. Give the workspace a name.
-    
-    1. Select save. --->
-
     >**Note:** Unless specified, always install the *Microsoft* published extensions.
 
 1. Within the left menu bar, select the Extensions icon.
@@ -56,11 +42,13 @@ This task explores Notebooks in Microsoft Sentinel Data lake. You will be using 
 
 1. Within the search bar of Extensions, search for *Microsoft Sentinel*, and select **Install**.
 
+1. Wait for all the extensions to finish installing.
+
 1. On your keyboard, select the ctrl+shift+p keys to open the command options within the top bar.
 
 1. Look for **MCP: Add server**, and select that option.
 
-1. Choose the HTTP option and enter the URL: '<https://sentinel.microsoft.com/mcp/data-exploration>'.
+1. Choose the HTTP option and enter the URL: <https://sentinel.microsoft.com/mcp/data-exploration>.
 
 1. Select **Enter** to use the default server ID.
 
