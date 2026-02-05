@@ -14,6 +14,10 @@ You're a Security Operations Analyst working at a company that implemented Micro
 
 ### Estimated time to complete this lab: 30 minutes
 
+### Optional task - Connect Microsoft Sentinel to Microsoft Defender XDR
+
+To understand how Microsoft Sentinel is onboarded to Microsoft Defender XDR, you can perform the instructions for this simulated exercise - **[Connect Microsoft Sentinel to Defender XDR](https://learn.microsoft.com/training/modules/integrate-microsoft-defender-xdr-with-microsoft-sentinel/simulation-exercise-deploy-sentinel-to-defender)**.
+
 ### Task 1 - Explore Microsoft Sentinel settings in Defender XDR
 
 1. Log in to **WIN1** virtual machine as Admin with the password: **Pa55w.rd**.
