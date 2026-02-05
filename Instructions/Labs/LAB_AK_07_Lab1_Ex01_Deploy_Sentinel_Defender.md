@@ -18,7 +18,7 @@ You're a Security Operations Analyst working at a company that implemented Micro
 
 1. Log in to **WIN1** virtual machine as Admin with the password: **Pa55w.rd**.
 
-1. In the Microsoft Edge browser, navigate to the Defender XDR at <https://security.microsoft.com>.
+1. In the Microsoft Edge browser, navigate to Defender XDR at <https://security.microsoft.com>.
   
 1. In the **Sign in** dialog box, copy, and paste in the tenant Email account for the admin username provided by your lab hosting provider and then select **Next**.
 
@@ -68,6 +68,8 @@ Deploy Microsoft Sentinel to the workspace.
 
 1. Expand each of the different sections to explore the available configuration options.
 
+>**Warning:** Do not select the *Disconnect* or *Remove Microsoft Sentinel* icon links. Doing so can impact the functionality of your environment.
+
 ### Task 2 - Configure data retention
 
 1. While still on the  workspace settings options page, expand **Log Analytics settings**, and select the **Configure Log Analytics workspace** link.
@@ -106,13 +108,9 @@ In this task, you create a watchlist in Microsoft Sentinel.
 
 1. Close Notepad.
 
-1. Select **Home** from the Microsoft Azure "breadcrumb" menu.
+1. In the Microsoft Defender navigation menu, scroll to and expand the **Microsoft Sentinel** section.
 
-1. You should see **Microsoft Sentinel** tile in the *Azure services* section of the portal. Select it.
-
-1. Select the **defenderWorkspace** Microsoft Sentinel workspace.
-
-1. In Microsoft Sentinel, select the **Watchlist** option under the Configuration area.
+1. Expand the **Configuration** menu, and select **Watchlist**.
 
 1. Select **+ New** from the command bar.
 
@@ -144,15 +142,17 @@ In this task, you create a watchlist in Microsoft Sentinel.
 
     >**Note:** You can now use the _GetWatchlist('HighValueHosts') in your own KQL statements to access the list. The column to reference would be *Hostname*.
 
-1. Close the *Logs* window by selecting the 'x' in the top-right and select **OK** to discard the unsaved edits.
-
 ### Task 5: Create a Threat Indicator
 
 In this task, you create an indicator in Microsoft Sentinel.
 
-1. In Microsoft Sentinel, select the **Threat intelligence** option in the Threat management area.
+1. In Microsoft Sentinel, expand the *Threat management* menu, and select the **Threat intelligence** option.
 
-1. Select **+ Add New** from the command bar.
+1. Select the **Open Intel management** button.
+
+    >**Note:** This opens a page for consolidated *Intel management* within the *Microsoft Threat Intelligence* section of Defender XDR.
+
+1. Select **+ New** from the command bar.
 
 1. Select the **TI Object**.
 
@@ -172,7 +172,9 @@ In this task, you create an indicator in Microsoft Sentinel.
 
 1. Select **Add**.
 
-1. Select the **Logs** option under the *General* area of the *Sentinel* navigation menu. You might want to disable the "Always show queries" option and close the *Queries* window to run the KQL statements.
+1. In the Microsoft Defender navigation menu, scroll up and expand the **Investigation & Response** section.
+
+1. Expand the **Hunting** section and select **Advanced hunting**.
 
     >**Note:** In the default *New Query 1* tab, the **_GetWatchList('HighValueHosts')** query should still be there, and will now produce results if run.
 
@@ -197,22 +199,24 @@ In this task, you create an indicator in Microsoft Sentinel.
 
 In this task, you'll change the retention period for the SecurityEvent table.
 
-1. In Microsoft Sentinel, select the **Settings** option under the *Configuration* area.
+1. In the Microsoft Defender navigation menu, scroll down and expand the **Microsoft Sentinel** section.
 
-1. Select **Workspace settings**.
+1. Expand the **Configuration** section and select **Tables**.
 
-1. In Log Analytics workspace, select the **Tables** option under the *Settings* area.
+1. In the Search box, type **SecurityEvent**, and then select the table **SecurityEvent** from the results.
 
-1. Search and select the table **SecurityEvent**, and then select the ellipsis link (...).
+    >**Note:** There will be multiple variations of the SecurityEvent table. We recommend selecting the correct*SecurityEvent_CL* table.
 
-    >**Note:** You may need to scroll to the right to see the ellipsis link.
+1. Select the **Data retention settings** gear icon.
 
-1. Select **Manage Table**.
+    >**Note:** This opens a page with *Analytics tier* and *Data lake tier* settings.
 
-1. Change the *Interactive retention period* to **90 days**.
+1. Change the *Analytics retention period* to **90 days**.
 
-1. Reset the *Total retention period* to **180 days** (if needed). Notice that *Archive period* is set to *90 days*, because *Azure Monitor* automatically treats the remaining 90 days of total retention as low-cost, long-term retention.
+1. The *Total retention period* is now **Same as Analytics retention (90 days)**. 
 
 1. Select **Save** to apply the changes.
+
+1. Select the radio button for *Data lake tier*, and notice that Retention is set to *180 days*. 
 
 ## You have completed the lab
