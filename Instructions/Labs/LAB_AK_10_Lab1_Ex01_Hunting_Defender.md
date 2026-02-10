@@ -66,7 +66,7 @@ As described above, Azure Arc has been pre-installed on the **WINServer** machin
 
 In this task, you'll add an Azure Arc connected, on-premises machine to Microsoft Sentinel.  
 
->**Note:** Microsoft Sentinel has been predeployed in your Azure subscription with the name **defenderWorkspace**, and the required *Content Hub* solutions have been installed.
+>**Note:** Microsoft Sentinel has been predeployed in your Azure subscription with the name **'sentinelworkspace-01'**, and the required *Content Hub* solutions have been installed.
 
 1. Login to **WIN1** virtual machine as Admin with the password: **Pa55w.rd**.  
 
@@ -90,7 +90,7 @@ In this task, you'll add an Azure Arc connected, on-premises machine to Microsof
 
 1. In the *Configuration* section, under *Prerequisites* and *Table Management*, select **+Create data collection rule**.
 
-1. Enter **AZWINDCR** for Rule Name, verify that *Subscription* is correct, select the **defender-RG** Resource Group.
+1. Enter **AZWINDCR** for Rule Name, verify that *Subscription* is correct, select the **SentinelStatic** Resource Group.
 
 1. Select **Next: Resources**.
 
