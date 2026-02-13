@@ -16,7 +16,7 @@ You're a Security Operations Analyst working at a company that implemented Micro
 
 ### Estimated time to complete this lab: 20 minutes
 
-### Task 1: Access the Microsoft Sentinel Workspace
+### Task 1: Access the Microsoft Sentinel Workspace in Microsoft Defender XDR
 
 In this task, you'll access your Microsoft Sentinel workspace.
 
@@ -32,17 +32,17 @@ In this task, you'll access your Microsoft Sentinel workspace.
 
 1. In the **Enter password** dialog box, copy, and paste in the **Tenant Password** provided by your lab hosting provider and then select **Sign in**.
 
-1. In the Search bar of the Azure portal, type *Sentinel*, then select **Microsoft Sentinel**.
-
-1. Select the Microsoft Sentinel **sentinelworkspace-01**.
+    >**Note:** You may be prompted to enter the *Temporary Access Pass* (TAP) instead of a password. This is also provided in the resources tab. If prompted, copy and paste the TAP value and select **Sign in**.
 
 1. Proceed to the next task.
 
-### Task 2: Connect the Microsoft Defender for Cloud data connector
+### Task 2: Manage the Microsoft Defender for Cloud data connector
 
-In this task, you'll connect the Microsoft Defender for Cloud data connector.
+In this task, you'll explore management of the Microsoft Defender for Cloud data connector.
 
-1. In the Microsoft Sentinel navigation menu, scroll down to the **Content management** section and select **Content Hub**.
+1. In the Microsoft Defender navigation menu, scroll down and expand the **Microsoft Sentinel** section.
+
+1. Expand the **Content management** section and select **Content Hub**.
 
 1. In the *Content hub*, search for the **Microsoft Defender for Cloud** solution and select it from the list.
 
@@ -50,29 +50,23 @@ In this task, you'll connect the Microsoft Defender for Cloud data connector.
 
     >**Note:** The *Microsoft Defender for Cloud* solution installs the *Subscription-based Microsoft Defender for Cloud (Legacy)* Data connector, the *Tenant-based Microsoft Defender for Cloud (Preview)* Data connector, and an Analytics rule. The *Tenant-based Microsoft Defender for Cloud (Preview)* Data connector is used when a tenant has multiple subscriptions.
 
-1. Select the *Subscription-based Microsoft Defender for Cloud (Legacy)* Data connector check-box, and select **Open connector page**.
+1. Select the *Tenant-based Microsoft Defender for Cloud* Data connector check-box, and select **Open connector page**.
 
-1. In the *Configuration* section, **select** the checkbox for the *MOC Subscription-XXXXXXXXXXX* and select the **Connect** link.
+1. A new browser tab will open on the Azure portal Data Connector page. The status should show *Connected*.
 
-1. The **Status** should now be **Connected**.
+1. Review the *Configuration* section of the *Instructions* tab.
 
-1. To enable bi-directional sync, select the **Enable Microsoft Defender for all subscriptions** link.
+1. Note that "Microsoft Defender for Cloud alerts are connected to stream through the Microsoft 365 Defender" now, and that you "Cannot disconnect while Microsoft Defender XDR is connected".
 
-    >**Note:** You may have to scroll to the right to see the link.
+1. Also note in the *Details pane* that the *Data types* use the *SecurityAlert* table.
 
-1. On the *Microsoft Defender for Cloud - Getting started* page, the checkbox for the *MOC Subscription-XXXXXXXXXXX* should be selected, and the *Microsoft Defender plan* should display *On - Partial (30 trial days left)*.
+1. You can now close this browser tab and return to Microsoft Defender XDR.
 
-1. Select the **X (Close)** button on the upper right to close the *Getting started* page. You should be back on the *Microsoft Defender for Cloud* configuration page.
+### Task 3: Manage the Azure Activity data connector
 
-1. The *Status* for the *MOC Subscription-XXXXXXXXXXX* should be *Connected* and *Bi-directional sync* should be **Enabled**.
+In this task, you'll explore management of the *Azure Activity* data connector.
 
-    >**Note:** You may need to retry this procedure to see *Bi-directional sync Enabled*. After re-running the steps, try setting the *Bi-directional sync* drop-down to **Enabled**.
-
-### Task 3: Connect the Azure Activity data connector
-
-In this task, you'll connect the *Azure Activity* data connector.
-
-1. In the Microsoft Sentinel navigation menu, scroll down to the *Content management* section and select **Content Hub**.
+1. You should still be in the Microsoft Sentinel *Content Hub*.
 
 1. In the *Content hub*, search for the **Azure Activity** solution and select it from the list.
 
@@ -82,18 +76,18 @@ In this task, you'll connect the *Azure Activity* data connector.
 
 1. Select the *Azure Activity* Data connector and select **Open connector page**.
 
-1. In the *Configuration* area under the *Instructions* tab, scroll down to "2. Connect your subscriptions...", and select **Launch Azure Policy Assignment Wizard>**.
+1. Note that the status should show *Connected*
 
-1. In the **Basics** tab, select the ellipsis button (...) under **Scope** and select your *MOC Subscription-XXXXXXXXXXX* subscription from the drop-down list and click **Select**.
+1. In the **Setup** tab, *Table management* section,  select the checkbox for the **AzureActivity** table. The *Gear* wheel for *Data retention settings* appears.
 
-    >**Note:** *Do not* select an optional Resource Group.
+1. Select the **Data retention settings** and review the *Manage AzureActivity* settings in *Analytics tier*.
 
-1. Select the **Parameters** tab, choose your *uniquenameDefender* workspace from the **Primary Log Analytics workspace** drop-down list. This action applies the subscription configuration to send the information to the Log Analytics workspace.
+    >**Note:** This data connector is fully ported to Defender XDR.
 
-1. Select the **Remediation** tab and select the **Create a remediation task** checkbox. This action applies the policy to existing Azure resources.
+1. Close out of the *Manage AzureActivity* page by selecting the **X** in the upper right corner.
 
-1. Select the **Review + Create** button to review the configuration.
+1. Select the **Advanced options** tab at the top of page and review the *Configure UEBA* settings. Note that this setting is enabled for *Azure Activity.
 
-1. Select **Create** to finish.
+1. Follow the browser *breadcrumbs* trail back to the *Content hub to finish.
 
 ## Proceed to Exercise 2

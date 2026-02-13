@@ -40,11 +40,13 @@ In this task, you create a Windows virtual machine in Azure.
 
 1. Select **Dev/Test** and then select **Continue to create a VM**.
 
-1. Select **Create new** for *Resource group*, enter RG-AZWIN01 as Name and, select **OK**.
+    >**Note:** The next two steps will require you to create Azure resources with unique names. We suggest using your initials and a random number combination to ensure uniqueness, for example, *RG-XX123* for the resource group and *AZWINXX123* for the virtual machine.
+
+1. Select **Create new** for *Resource group*, enter RG-*XX123* as Name and, select **OK**.
 
     >**Note:** This will be a new resource group for tracking purposes. 
 
-1. In *Virtual machine name*, enter AZWIN01.
+1. In *Virtual machine name*, enter AZWIN*XX123*.
 
 1. Leave **(US) East US** as the default value for *Region*.
 
@@ -54,7 +56,7 @@ In this task, you create a Windows virtual machine in Azure.
 
     >**Note:** If you see the message: *This image is not supported for Azure Automanage. To disable this feature,navigate to the Management tab. Otherwise, select a supported image.* Go to the Management tab and disable "Automanage". The creation process will succeed afterwards.
 
-1. Scroll down and enter a *Username* of your choosing. **Hint:** Avoid reserved words like admin or root.
+1. Scroll down and enter a *Username* of your choosing. **Hint:** Avoid reserved words like admin or root and consider using your *Student* username, for example, *Student-xxxxxxx*.
 
 1. Enter a *Password* of your choosing. **Hint:** It might be easier to reuse your LabUser password. It can be found in the resources tab. You may need to enter it twice.
 
@@ -110,13 +112,11 @@ In this task, you connect an Azure Windows virtual machine to Microsoft Sentinel
 
 1. Login to **WIN1** virtual machine as Admin with the password: **Pa55w.rd**.  
 
-1. If necessary, open the Microsoft Edge browser, navigate to the Azure portal at <https://portal.azure.com>, and sign in with the provided credentials.
+1. If necessary, open the Microsoft Edge browser, and navigate to the Defender portal at <https://security.microsoft.com>, and sign in with the provided credentials.
 
-1. In the Search bar of the Azure portal, type *Sentinel*, then select **Microsoft Sentinel**.
+1. In the Microsoft Defender navigation menu, scroll down and expand the **Microsoft Sentinel** section.
 
-1. Select the Microsoft Sentinel **defenderWorkspace**.
-
-1. In the Microsoft Sentinel left navigation menu, scroll down to the *Content management* section and select **Content Hub**.
+1. Expand the **Content management** section and select **Content Hub**.
 
 1. In the *Content hub*, search for the **Windows Security Events** solution and select it from the list.
 
@@ -126,9 +126,9 @@ In this task, you connect an Azure Windows virtual machine to Microsoft Sentinel
 
 1. Select the *Windows Security Events via AMA* Data connector, and select **Open connector page** on the connector information blade.
 
-1. In the *Configuration* section, select the **+Create data collection rule** button.
+1. On the *Setup* tab, scroll down to the *Configuration* section, and select the **+Create data collection rule** button.
 
-1. Enter **AZWINDCR** for Rule Name, then select **Next: Resources**.
+1. Enter a unique name for the Rule Name, **Hint:** consider using your *Student* username number, for example, **AZWINXXXXXXXDCR**, then select **Next: Resources**.
 
 1. Expand your *MOC Subscription* under *Scope* on the *Resources* tab.
 
@@ -158,7 +158,7 @@ In this task, you'll add an Azure Arc connected, non-Azure Windows virtual machi
 
     >**Hint:** You can expand the whole *Scope* hierarchy by selecting the ">" before the *Scope* column.
 
-1. Expand **defender-RG** (or the Resource Group your created), then select **WINServer**.
+1. Expand **SentinelStatic** (or the Resource Group your created), then select **WINServer**.
 
     >**Important:** If you do not see WINServer, please refer to the Learning Path 3, Exercise 1, Task 4 where you installed Azure Arc in this server.
 
