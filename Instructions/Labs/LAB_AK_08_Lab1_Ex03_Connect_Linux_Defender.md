@@ -238,19 +238,9 @@ In this task, you will connect a Linux host to Microsoft Sentinel with the Syslo
 
     >**Note:** You may need to refresh the page.
 
-1. Next, in the Configuration* section, copy the script to install the AMA Forwarder by using the "Copy to clipboard" icon.
+1. The data collection rule installs the Azure Monitor Agent (AMA), and the The *AMA Forwarder* install commands were pre-deployed on the LIN2 machine to install the AMA Forwarder.
 
 1. Return to the *PowerShell Command Prompt* window. You should still be connected to the LIN2 virtual machine.
-
-1. At the linux prompt, paste the AMA Forwarder installation script you copied in the previous step.
-
-1. You will need to edit the script for the correct *Python* version installed on your LIN2 machine.
-
-1. Change the script section that contains the *python Forwarder_AMA_installer.py* commands to *python3 Forwarder_AMA_installer.py*.
-
-1. Press **Enter** to run the script
-
-1. You should see the *Installation completed successfully* message.
 
 1. At the linux prompt, type the following command, and press enter:
 
