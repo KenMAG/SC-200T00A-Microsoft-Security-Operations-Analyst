@@ -220,7 +220,9 @@ In this task, you will connect a Linux host to Microsoft Sentinel with the Syslo
 
 1. In the *Configuration* section, select **+Create data collection rule**.
 
-1. On the *Create data collection rule* page, *Basic* tab, enter **AZLINDCR2** for Rule Name, then select **Next: Resources**.
+    >**Important:** You need to enter a unique name for the Rule Name, consider using your *Student* username number, for example, **AZLINxxxxxxxxDCR2**.
+
+1. On the *Create data collection rule* page, *Basic* tab, enter **AZLINxxxxxxxxDCR2** for Rule Name, then select **Next: Resources**.
 
 1. On the *Resources* tab, expand your *MOC Subscription* under *Scope*.
 
