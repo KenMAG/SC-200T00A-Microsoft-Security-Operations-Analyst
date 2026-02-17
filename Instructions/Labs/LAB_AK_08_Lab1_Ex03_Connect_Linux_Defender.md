@@ -220,62 +220,48 @@ In this task, you will connect a Linux host to Microsoft Sentinel with the Syslo
 
 1. In the *Configuration* section, select **+Create data collection rule**.
 
-1. Select the link for **Download & install agent for non-Azure Linux machine**.
+1. On the *Create data collection rule* page, *Basic* tab, enter **AZLINDCR2** for Rule Name, then select **Next: Resources**.
 
-    >**Note:** Your Log Analytics workspace should show *2 Windows computers connected*. This corresponds to WINServer and AZWIN01 virtual machines connected earlier.
+1. On the *Resources* tab, expand your *MOC Subscription* under *Scope*.
 
-1. Select the tab for **Linux servers**.
+    >**Hint:** You can expand the whole *Scope* hierarchy by selecting the ">" before the *Scope* column.
 
-    >**Note:** Your Log Analytics workspace should show *1 Linux computers connected*. This corresponds to LIN1 (ubuntu1) virtual machine connected earlier with the CEF connector.
+1. Expand **SentinelStatic**, then select **LIN2**.
 
-1. Select **Log Analytics agent instructions**.
+    >**Note:** You're *LIN2* virtual machine may appear with a different name, like ubuntuxxx.
 
-1. Copy the command in the *Download and onboard agent for Linux* area to the clipboard.
+1. Select **Next: Collect**. In the *Collect* tab, select the  *LOG_ALERT* drop-down menu, and select **LOG_WARNING**.
 
-1. Launch your LIN2 virtual machine. Login with the username as password provided by your lab hoster. **Hint:** You might need to press the Enter key to see the login prompt.
+1. Select **Next: Review + create**, and select **Create**. Wait for the deployment to finish.
 
-1. Note the IP address for your LIN2 server. See the screenshot below as an example:
+1. The *Syslog via AMA* Data connector should now show **Connected**.
 
-    ![linux login](../Media/LinuxLoginExample.png)
+    >**Note:** You may need to refresh the page.
 
-1. Go back to the **WIN1** virtual machine. Select the Windows PowerShell used in the previous task.
+1. Next, in the Configuration* section, copy the script to install the AMA Forwarder by using the "Copy to clipboard" icon.
 
-1. Enter the following PowerShell command, adjusting for your specific Linux server information, and press enter:
+1. Return to the *PowerShell Command Prompt* window. You should still be connected to the LIN2 virtual machine.
 
-    ```PowerShell
-    ssh insert-your-linux-IP-address-here -l insert-linux-user-name-here
+1. At the linux prompt, paste the AMA Forwarder installation script you copied in the previous step.
+
+1. You will need to edit the script for the correct *Python* version installed on your LIN2 machine.
+
+1. Change the script section that contains the *python Forwarder_AMA_installer.py* commands to *python3 Forwarder_AMA_installer.py*.
+
+1. Press **Enter** to run the script
+
+1. You should see the *Installation completed successfully* message.
+
+1. At the linux prompt, type the following command, and press enter:
+
+    ```cmd
+    netstat -lnptv
     ```
 
-1. Enter *yes* to confirm the connection and then type the user's password and press enter. Your screen should look something like this:
+1. You should see the rsyslog (or syslog-ng) daemon listening on port 514.
 
-    ![linux login](../Media/PSconnectLinux.png)
+    >**Note:** You can query the *Syslog* table for Syslog events.
 
-1. You are now ready to paste the *Download and onboard agent for Linux* command from the earlier step. Make sure that script is in the clipboard. In PowerShell right-click the top bar and choose **Edit** and then **Paste**.
-
-1. Once the script is pasted, press Enter. The script will run against your Linux server remotely. Wait
-
-1. When it finished, type **exit** to close the remote shell connection to LIN2.
-
-### Task 4: Configure the facilities you want to collect and their severities for the Syslog connector
-
-In this task, you will configure the Syslog collection facilities.
-
-1. Go back to the Edge browser where you have your Microsoft Sentinel Portal open and close the "Log Analytics workspace" page and the "Syslog" data connector page by selecting the 'x' in the top right corner twice.
-
-1. In Microsoft Sentinel portal, select **Settings** under *Configuration* and then the **Workspace settings** tab.
-
-1. Select **Legacy agents management** under the *Classic* area.
-
-1. Select the **Syslog** tab.
-
-1. Select the **+ Add facility** button.
-
-1. Select **auth** from the drop-down menu for *Facility name*.
-
-1. Select the **+ Add facility** button again.
-
-1. Select **syslog** from the drop-down menu for *Facility name*.
-
-1. Select **Apply** to save your changes.
+1. Type **exit** to close the remote shell connection to LIN2.
 
 ## Proceed to Exercise 4
