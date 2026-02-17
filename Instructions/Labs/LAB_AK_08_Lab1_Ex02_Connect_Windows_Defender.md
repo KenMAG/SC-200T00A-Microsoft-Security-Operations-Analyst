@@ -28,29 +28,31 @@ In this task, you create a Windows virtual machine in Azure.
 
 1. In the **Enter password** dialog box, copy, and paste in the **Tenant Password** provided by your lab hosting provider and then select **Sign in**.
 
+    >**Note:** You may be prompted to enter the *Temporary Access Pass* (TAP) instead of a password. This is also provided in the resources tab. If prompted, copy and paste the TAP value and select **Sign in**.
+
 1. Select **+ Create a Resource**. **Hint:** If you were already in the Azure portal, you might need to select *Microsoft Azure* from the top bar to go Home.
 
 1. In the **Search services and marketplace** box, enter *Windows 11* and select **Windows 11** from the drop-down list.
 
 1. Select the box for **Windows 11**.
 
-1. Open the *Plan* drop-down list and select **Windows 11 Enterprise, version 23H2**.
+1. Open the *Plan* drop-down list and select **Windows 11 Enterprise, version 24H2**.
 
 1. Select **Start with a pre-set configuration** to continue.
 
 1. Select **Dev/Test** and then select **Continue to create a VM**.
 
-    >**Note:** The next two steps will require you to create Azure resources with unique names. We suggest using your initials and a random number combination to ensure uniqueness, for example, *RG-XX123* for the resource group and *AZWINXX123* for the virtual machine.
+    >**Note:** The next two steps will require you to create Azure resources with unique names. We suggest using your initials and a random number combination to ensure uniqueness, for example, *RG-XXXXX123* for the resource group and *AZWIN-XXXXX123* for the virtual machine.
 
-1. Select **Create new** for *Resource group*, enter RG-*XX123* as Name and, select **OK**.
+1. Select **Create new** for *Resource group*, enter RG-*XXXXX123* as Name and, select **OK**.
 
     >**Note:** This will be a new resource group for tracking purposes. 
 
-1. In *Virtual machine name*, enter AZWIN*XX123*.
+1. In *Virtual machine name*, enter AZWIN-*XXXXX123*.
 
 1. Leave **(US) East US** as the default value for *Region*.
 
-1. Scroll down and review the *Image* for the virtual machine. If it appears empty, select **Windows 11 Enterprise, version 23H2**.
+1. Scroll down and review the *Image* for the virtual machine. If it appears empty, select **Windows 11 Enterprise, version 24H2**.
 
 1. Review the *Size* for the virtual machine. If it appears empty, select **See all sizes**, choose the first (D-series) VM size listed and select **Select**.
 
@@ -108,7 +110,7 @@ In this task, you connect an on-premises server to your Azure subscription. Azur
 
 In this task, you connect an Azure Windows virtual machine to Microsoft Sentinel.
 
->**Note:** Microsoft Sentinel has been predeployed in your Azure subscription with the name **defenderWorkspace**, and the required *Content Hub* solutions have been installed.
+>**Note:** Microsoft Sentinel has been predeployed in your Azure subscription with the name **sentinelworkspace-01**, and the required *Content Hub* solutions have been installed.
 
 1. Login to **WIN1** virtual machine as Admin with the password: **Pa55w.rd**.  
 
@@ -152,7 +154,7 @@ In this task, you'll add an Azure Arc connected, non-Azure Windows virtual machi
 
 1. Make sure you are in the *Windows Security Events via AMA* data connector configuration in your Microsoft Sentinel workspace.
 
-1. In the *Configuration* section, edit the **AZWINDCR** *data collection rule* by selecting the *pencil* icon.
+1. In the *Configuration* section, edit the **AZWINXXXXXXXDCR** *data collection rule* by selecting the *pencil* icon.
 
 1. Select **Next: Resources**, and expand your *MOC Subscription* under *Scope* on the *Resources* tab.
 

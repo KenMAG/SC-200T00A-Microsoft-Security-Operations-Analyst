@@ -20,25 +20,21 @@ You are a Security Operations Analyst working at a company that implemented Micr
 
 ### Task 1: Access the Microsoft Sentinel Workspace
 
-In this task, you will access your Microsoft Sentinel workspace.
+In this task, you'll access your Microsoft Sentinel workspace.
 
->**Note:** Microsoft Sentinel has been predeployed in your Azure subscription with the name **defenderWorkspace**, and the required *Content Hub* solutions have been installed.
+>**Note:** Microsoft Sentinel has been predeployed in your Azure subscription with the name **sentinelworkspace-01**, and the required *Content Hub* solutions have been installed.
 
 1. Log in to **WIN1** virtual machine as Admin with the password: **Pa55w.rd**.  
 
-1. Start the Microsoft Edge browser.
+1. Open the Microsoft Edge browser.
 
-1. In the Edge browser, navigate to the Azure portal at <https://portal.azure.com>.
+1. In the Edge browser, navigate to the Azure portal at <https://security.microsoft.com>.
 
 1. In the **Sign in** dialog box, copy, and paste in the **Tenant Email** account provided by your lab hosting provider and then select **Next**.
 
 1. In the **Enter password** dialog box, copy, and paste in the **Tenant Password** provided by your lab hosting provider and then select **Sign in**.
 
-    >**Note:** You may be prompted to enter the *Temporary Access Pass* (TAP) instead of a password.
-
-1. In the Search bar of the Azure portal, type *Sentinel*, then select **Microsoft Sentinel**.
-
-1. Select the Microsoft Sentinel **defenderWorkspace**.
+    >**Note:** You may be prompted to enter the *Temporary Access Pass* (TAP) instead of a password. This is also provided in the resources tab. If prompted, copy and paste the TAP value and select **Sign in**.
 
 ### Task 2: Connect a Linux Host using the Common Event Format connector
 
@@ -67,7 +63,7 @@ In this task, you will connect a Linux host to Microsoft Sentinel with the Commo
 1. In the SSH session, at the linux prompt, type the following command. *Do not press enter*:
 
     ```cmd
-    azcmagent connect -g "defender-RG" -l "EastUS" -s "Subscription ID string"
+    azcmagent connect -g "SentinelStatic" -l "CentralUS" -s "Subscription ID string"
     ```
 
 1. Replace the **Subscription ID string** with the *Subscription ID* provided by your lab hoster (*Resources tab). Make sure to keep the quotes.
@@ -90,7 +86,7 @@ In this task, you will connect a Linux host to Microsoft Sentinel with the Commo
 
 1. Start the Microsoft Edge browser.
 
-1. In the Edge browser, navigate to the Azure portal at <https://portal.azure.com>.
+1. In the Edge browser, navigate to Microsoft Defender XDR at <https://security.microsoft.com>.
 
 1. In the **Sign in** dialog box, copy, and paste in the **Tenant Email** account provided by your lab hosting provider and then select **Next**.
 
@@ -98,11 +94,9 @@ In this task, you will connect a Linux host to Microsoft Sentinel with the Commo
 
     >**Note:** You may be prompted to enter the *Temporary Access Pass* (TAP) instead of a password.
 
-1. In the Search bar of the Azure portal, type *Sentinel*, then select **Microsoft Sentinel**.
+1. In the Microsoft Defender navigation menu, scroll down and expand the **Microsoft Sentinel** section.
 
-1. Select the Microsoft Sentinel **defenderWorkspace**.
-
-1. In the Microsoft Sentinel left navigation menu, scroll down to the *Content management* section and select **Content Hub**.
+1. Expand the **Content management** section and select **Content Hub**.
 
 1. In the *Content hub*, search for the **Common Event Format** solution and select it from the list.
 
@@ -114,13 +108,15 @@ In this task, you will connect a Linux host to Microsoft Sentinel with the Commo
 
 1. In the *Configuration* section, select the **+Create data collection rule** button.
 
-1. On the *Create data collection rule* page, *Basic* tab, enter **AZLINDCR** for Rule Name, then select **Next: Resources**.
+    >**Important:** You need to enter a unique name for the Rule Name, consider using your *Student* username number, for example, **AZLINxxxxxxxxDCR**.
+
+1. On the *Create data collection rule* page, *Basic* tab, enter **AZLINxxxxxxxxDCR** for Rule Name, then select **Next: Resources**.
 
 1. On the *Resources* tab, expand your *MOC Subscription* under *Scope*.
 
     >**Hint:** You can expand the whole *Scope* hierarchy by selecting the ">" before the *Scope* column.
 
-1. Expand **defender-RG**, then select **LIN1**.
+1. Expand **SentinelStatic**, then select **LIN1**.
 
     >**Note:** You're *LIN1* virtual machine may appear with a different name, like ubuntuxxx.
 
@@ -175,7 +171,7 @@ In this task, you will connect a Linux host to Microsoft Sentinel with the Syslo
 1. In the SSH session, at the linux prompt, type the following command. *Do not press enter*:
 
     ```cmd
-    azcmagent connect -g "defender-RG" -l "EastUS" -s "Subscription ID string"
+    azcmagent connect -g "SentinelStatic" -l "CentralUS" -s "Subscription ID string"
     ```
 
 1. Replace the **Subscription ID string** with the *Subscription ID* provided by your lab hoster (*Resources tab). Make sure to keep the quotes.
